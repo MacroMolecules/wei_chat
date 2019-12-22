@@ -10,27 +10,24 @@ enum ActionItems {
 // 主页 顶部底部状态栏
 
 class NavigationIconView {
-  final String _title;
-  final IconData _icon;  // 图标
-  final IconData _activeIcon;  // 点击切换图标
+  // final String _title;
+  // final IconData _icon;  // 图标
+  // final IconData _activeIcon;  // 点击切换图标
   final BottomNavigationBarItem item;  // 暴露的
 
   // 构造函数
   // 下划线_ 定义变量
   NavigationIconView({Key key,  String title, IconData icon, IconData activeIcon,}) :
     // 对全局变量赋值
-    _title = title,
-    _icon = icon,
-    _activeIcon = activeIcon,
+    // _title = title,
+    // _icon = icon,
+    // _activeIcon = activeIcon,
 
     // 构造器数据结构
     item = BottomNavigationBarItem(
-      icon: Icon(icon, color: Color(AppColors.TabIconNormal)),
-      activeIcon: Icon(activeIcon, color: Color(AppColors.TabIconActive)),
-      title: Text(title, style: TextStyle(
-        fontSize: 14.0,
-        color: Color(AppColors.TabIconNormal)
-      )),
+      icon: Icon(icon),
+      activeIcon: Icon(activeIcon),
+      title: Text(title),
       backgroundColor: Colors.white
     );
 }
@@ -40,6 +37,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
 
   void initState() {
@@ -59,11 +57,11 @@ class _HomeScreenState extends State<HomeScreen> {
       NavigationIconView(
         title: '朋友',
         icon: IconData(
-          0xe61a,
+          0xe634,
           fontFamily: Constants.IconFontFamily,
         ),
         activeIcon: IconData(
-          0xe63d,
+          0xe65f,
           fontFamily: Constants.IconFontFamily,
         ),
       ),
@@ -97,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Row(
       children: <Widget>[
         Icon(IconData(
-          0xe605,
+          iconName,
           fontFamily: Constants.IconFontFamily, // 添加图标
         ),
         size: 22.0,
@@ -111,19 +109,23 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final BottomNavigationBar botNavBar = BottomNavigationBar(
+      fixedColor: const Color(AppColors.TabIconActive),
       items: _navigationViews.map((NavigationIconView view) {
         return view.item;
       }).toList(),
-      currentIndex: 0,
+      currentIndex: _currentIndex,  // 底部切换
       type: BottomNavigationBarType.fixed,
       // 回调函数 切换底部状态栏时 回调方法
       onTap: (int index) {
-        print('点击第$index个Tab');
+        setState(() {
+          _currentIndex = index;
+        });
       }
     );
     return Scaffold(
       appBar: AppBar(
         title: Text('微信'),
+        elevation: 0.0,  // 去除顶部栏下的阴影
         actions: <Widget>[
           IconButton(
             icon: Icon(IconData(
@@ -133,7 +135,6 @@ class _HomeScreenState extends State<HomeScreen> {
             onPressed: () {},
           ),
           Container(width: 4.0), // 添加间距
-
           // 添加按钮点击弹窗
           PopupMenuButton(
             itemBuilder: (BuildContext context) {
