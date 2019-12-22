@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 // 主页 底部状态栏
 
 class NavigationIconView {
   final String _title;
-  final Widget _icon;  // 图标
-  final Widget _activeIcon;  // 点击切换图标
+  final IconData _icon;  // 图标
+  final IconData _activeIcon;  // 点击切换图标
   final BottomNavigationBarItem item;  // 暴露的
 
   // 构造函数
   // 下划线_ 定义变量
-  NavigationIconView({Key key,  String title, Widget icon, Widget activeIcon,}) :
+  NavigationIconView({Key key,  String title, IconData icon, IconData activeIcon,}) :
     // 对全局变量赋值
     _title = title,
     _icon = icon,
@@ -18,9 +20,12 @@ class NavigationIconView {
 
     // 构造器数据结构
     item = BottomNavigationBarItem(
-      icon: icon,
-      activeIcon: activeIcon,
-      title: Text(title),
+      icon: Icon(icon, color: Color(AppColors.TabIconNormal)),
+      activeIcon: Icon(activeIcon, color: Color(AppColors.TabIconActive)),
+      title: Text(title, style: TextStyle(
+        fontSize: 14.0,
+        color: Color(AppColors.TabIconNormal)
+      )),
       backgroundColor: Colors.white
     );
 }
@@ -37,23 +42,47 @@ class _HomeScreenState extends State<HomeScreen> {
     _navigationViews = [
       NavigationIconView(
         title: '微信',
-        icon: Icon(Icons.ac_unit),
-        activeIcon: Icon(Icons.access_alarm)
+        icon: IconData(
+          0xe603,
+          fontFamily: Constants.IconFontFamily,
+        ),
+        activeIcon: IconData(
+          0xe635,
+          fontFamily: Constants.IconFontFamily,
+        ),
       ),
       NavigationIconView(
-        title: '通讯录',
-        icon: Icon(Icons.ac_unit),
-        activeIcon: Icon(Icons.access_alarm)
+        title: '朋友',
+        icon: IconData(
+          0xe61a,
+          fontFamily: Constants.IconFontFamily,
+        ),
+        activeIcon: IconData(
+          0xe63d,
+          fontFamily: Constants.IconFontFamily,
+        ),
       ),
       NavigationIconView(
         title: '发现',
-        icon: Icon(Icons.ac_unit),
-        activeIcon: Icon(Icons.access_alarm)
+        icon: IconData(
+          0xe63c,
+          fontFamily: Constants.IconFontFamily,
+        ),
+        activeIcon: IconData(
+          0xe65b,
+          fontFamily: Constants.IconFontFamily,
+        ),
       ),
       NavigationIconView(
-        title: '我',
-        icon: Icon(Icons.portrait),
-        activeIcon: Icon(Icons.access_alarm)
+        title: '我的',
+        icon: IconData(
+          0xe65d,
+          fontFamily: Constants.IconFontFamily,
+        ),
+        activeIcon: IconData(
+          0xe60d,
+          fontFamily: Constants.IconFontFamily,
+        ),
       ),
     ];
   }
