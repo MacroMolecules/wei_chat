@@ -37,8 +37,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  PageController _pageController;
   int _currentIndex = 0;
   List<NavigationIconView> _navigationViews;
+  List<Widget> _pages;
 
   void initState() {
     super.initState();
@@ -88,6 +90,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     ];
+    _pageController = PageController(initialPage: _currentIndex);
+    _pages = [
+      Container(color: Colors.red),
+      Container(color: Colors.yellow),
+      Container(color: Colors.blue),
+      Container(color: Colors.brown),
+    ];
   }
 
   // 构建弹出菜单布局
@@ -119,6 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: (int index) {
         setState(() {
           _currentIndex = index;
+          _pageController.animateToPage(_currentIndex,
+          duration: Duration(milliseconds: 200), curve: Curves.easeInOut);  // 根据底部切换界面
         });
       }
     );
@@ -170,8 +181,17 @@ class _HomeScreenState extends State<HomeScreen> {
           Container(width: 8.0),
         ],
       ),
-      body: Container(
-        color: Colors.white,
+      body: PageView.builder(
+        itemBuilder: (BuildContext context, int index) {
+          return _pages[index];
+        },
+        controller: _pageController,
+        itemCount:  _pages.length,
+        onPageChanged: (int index) {
+          setState(() {
+            _currentIndex = index;  // 切换界面时跟底部联动
+          });
+        },
       ),
       bottomNavigationBar: botNavBar, // 传入参数
     );
