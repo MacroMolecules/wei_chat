@@ -6,6 +6,7 @@ class AppColors {
   static const AppBarColor = 0xff303030; // 顶部状态栏颜色
   static const TabIconNormal = 0xff999999;  // 底部状态栏图标普通颜色
   static const TabIconActive = 0xff46c11c;  // 底部状态栏图标高亮颜色
+  static const AppBarPopuMenuTextColor = 0xffffffff;
 }
 
 class Constants {

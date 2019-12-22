@@ -99,9 +99,11 @@ class _HomeScreenState extends State<HomeScreen> {
         Icon(IconData(
           0xe605,
           fontFamily: Constants.IconFontFamily, // 添加图标
-        )),
+        ),
+        size: 22.0,
+        color: const Color(AppColors.AppBarPopuMenuTextColor)),  // 不可变的值前可用const修饰
         Container(width: 12.0),
-        Text(title),
+        Text(title, style: TextStyle(color: const Color(AppColors.AppBarPopuMenuTextColor))),
       ],
     );
   }
